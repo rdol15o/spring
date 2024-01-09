@@ -41,4 +41,9 @@ public class BookApiController {
         return bookService.edit(request).orElseThrow(ResourceNotFoundException::new);
     }
 
+    @DeleteMapping("/api/v1/book/{id}")
+    public Boolean delete(@PathVariable("id") Integer id){
+        return bookService.delete(id);
+    }
+
 }
