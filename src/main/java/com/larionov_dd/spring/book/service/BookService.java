@@ -3,6 +3,7 @@ package com.larionov_dd.spring.book.service;
 import com.larionov_dd.spring.book.entity.BookEntity;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +46,12 @@ public class BookService {
     }
 
     public Optional<BookEntity> edit(BookEntity book){
-        BookEntity oldBookEntity = byId(book.getId()).orElseThrow();
+        Optional<BookEntity> oldBookOptional = byId(book.getId());
+        if (oldBookOptional.isEmpty()){
+            return Optional.empty();
+        }
+
+        BookEntity oldBookEntity = oldBookOptional.get();
         oldBookEntity.setTitle(book.getTitle());
         oldBookEntity.setDescription(book.getDescription());
         return Optional.of(oldBookEntity);
